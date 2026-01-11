@@ -1,0 +1,47 @@
+[project]
+name = "viz-claude"
+version = "0.1.0"
+description = "Terminal visualization companion for Claude Code sessions"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+api = [
+    "anthropic>=0.40.0",
+]
+s3 = [
+    "boto3>=1.35.0",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+]
+
+[project.scripts]
+viz = "viz_claude.cli.main:main"
+viz-agent = "viz_claude.cli.agent:main"
+viz-renderer = "viz_claude.cli.renderer:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "A", "C4", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
